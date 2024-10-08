@@ -1,0 +1,28 @@
+
+-- ใช้ Server Script ( ห้ามใช้ localscript )
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local tick1 = tick()
+
+local kick = function (msg)
+	print(msg)
+	if Players.LocalPlayer and Players.LocalPlayer.Character then
+		Players:Kick(msg)
+	end
+end
+
+task.spawn(function()
+	while task.wait(0.25) do
+		for _, v1 in pairs(Workspace:GetDescendants()) do
+			if v1:IsA("ProximityPrompt") then
+				local _v = v1.HoldDuration
+				if v1.HoldDuration ~= _v then
+					return kick("ทำทำไม")
+				end
+				if tick() - tick1 > 60 then
+					return kick("Limit ProximityPrompt")
+				end
+			end
+		end
+	end
+end)
